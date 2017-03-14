@@ -1,30 +1,25 @@
 import { HeroesModule } from './heroes/heroes.module';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CrisisListComponent } from './crisis-list.component';
 import { PageNotFoundComponent } from './not-found.component';
-//Include heroes module in app.js
-// require('./heroes/heroes.module');
-// let listCmp = require('./heroes/hero-list.component');
-// console.log(listCmp.HeroListComponent)
-// console.log(CrisisListComponent)
+import { Http, Response } from '@angular/http';
+import { Observable } from "rxjs/Rx";
+import 'rxjs/add/operator/toPromise';
 
 const appRoutes: Routes = [
     { path: 'crisis-center', component: CrisisListComponent },
     { path: '', redirectTo: '/crisis-center', pathMatch: 'full' },
-    // {
-    //     path: 'heroes',
-    //     loadChildren: 'app/heroes/heroes.module.js'
-    // },
-    // {
-    //     path: 'heroes',
-    //     // loadChildren: 'app/heroes/heroes.module.js'
-    //     component: listCmp.HeroListComponent
-    // },
+    {
+        path: 'heroes',
+        loadChildren: function () { return heroModule.HeroesModule; }
+    },
     { path: '**', component: PageNotFoundComponent }
 ];
-
+//Include heroes module in app.js
+let heroModule = require('');
+@Injectable()
 @NgModule({
     imports: [
         RouterModule.forRoot(appRoutes)
@@ -33,4 +28,33 @@ const appRoutes: Routes = [
         RouterModule
     ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+    constructor(private http: Http) {
+        // this.loadAngularModule();
+        this.loadLocal();
+    }
+
+    public loadLocal() {
+        setTimeout(function () {
+            alert("Module loaded");
+            heroModule = require('./heroes/heroes.module');
+        }, 5000);
+    }
+
+    public loadAngularModule() {
+        this.http.get('heroesModule.js')
+            .toPromise()
+            .then(this.loadModule);
+    }
+
+    public loadModule(res: Response) {
+        // debugger;
+        FuseBox.dynamic("ngModule.js", res.text());
+        FuseBox.import('./ngModule.js');
+        heroModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
+    }
+
+    public showHero(): boolean {
+        return heroModule !== undefined;
+    }
+}
