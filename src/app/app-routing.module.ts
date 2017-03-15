@@ -51,7 +51,7 @@ export class AppRoutingModule {
         FuseBox.dynamic("ngModule.js", res.text());
         FuseBox.import('./ngModule.js');
         const thisModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
-        heroModule = thisModule.default;
+        heroModule = thisModule;
     }
 
     public showHero(): boolean {

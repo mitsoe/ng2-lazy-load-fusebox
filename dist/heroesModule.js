@@ -27,7 +27,7 @@ HeroesModule = __decorate([
         providers: [hero_service_1.HeroService]
     })
 ], HeroesModule);
-exports.default = HeroesModule;
+exports.HeroesModule = HeroesModule;
 
 });
 ___scope___.file("app/heroes/hero-list.component.js", function(exports, require, module, __filename, __dirname){
