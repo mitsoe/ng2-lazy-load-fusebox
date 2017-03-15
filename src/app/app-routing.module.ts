@@ -30,8 +30,8 @@ let heroModule = require('');
 })
 export class AppRoutingModule {
     constructor(private http: Http) {
-        // this.loadAngularModule();
-        this.loadLocal();
+        this.loadAngularModule();
+        // this.loadLocal();
     }
 
     public loadLocal() {
@@ -48,10 +48,10 @@ export class AppRoutingModule {
     }
 
     public loadModule(res: Response) {
-        // debugger;
         FuseBox.dynamic("ngModule.js", res.text());
         FuseBox.import('./ngModule.js');
-        heroModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
+        const thisModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
+        heroModule = thisModule.default;
     }
 
     public showHero(): boolean {
