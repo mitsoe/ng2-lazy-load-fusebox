@@ -1,4 +1,3 @@
-import { HeroesModule } from './heroes/heroes.module';
 import { Injectable, NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -31,14 +30,6 @@ let heroModule = require('');
 export class AppRoutingModule {
     constructor(private http: Http) {
         this.loadAngularModule();
-        // this.loadLocal();
-    }
-
-    public loadLocal() {
-        setTimeout(function () {
-            alert("Module loaded");
-            heroModule = require('./heroes/heroes.module');
-        }, 5000);
     }
 
     public loadAngularModule() {
