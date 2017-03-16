@@ -10,14 +10,8 @@ import 'rxjs/add/operator/toPromise';
 const appRoutes: Routes = [
     { path: 'crisis-center', component: CrisisListComponent },
     { path: '', redirectTo: '/crisis-center', pathMatch: 'full' },
-    {
-        path: 'heroes',
-        loadChildren: function () { return heroModule.HeroesModule; }
-    },
     { path: '**', component: PageNotFoundComponent }
 ];
-//Include heroes module in app.js
-let heroModule = require('');
 @Injectable()
 @NgModule({
     imports: [
@@ -28,9 +22,7 @@ let heroModule = require('');
     ]
 })
 export class AppRoutingModule {
-    constructor(private http: Http) {
-        this.loadAngularModule();
-    }
+    constructor(private http: Http) { }
 
     public loadAngularModule() {
         this.http.get('heroesModule.js')
@@ -42,10 +34,5 @@ export class AppRoutingModule {
         FuseBox.dynamic("ngModule.js", res.text());
         FuseBox.import('./ngModule.js');
         const thisModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
-        heroModule = thisModule;
-    }
-
-    public showHero(): boolean {
-        return heroModule !== undefined;
     }
 }

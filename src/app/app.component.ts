@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     <h1>Angular Router</h1>
     <nav>
       <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
-      <a *ngIf="LinkIsPossible()" routerLink="/heroes" routerLinkActive="active">Heroes</a>
+      <a (click)="LinkIsPossible()" routerLink="/heroes" routerLinkActive="active">Heroes</a>
     </nav>
     <router-outlet></router-outlet>
   `
@@ -16,6 +16,6 @@ export class AppComponent {
   constructor(public router: AppRoutingModule) { }
 
   public LinkIsPossible() {
-    return this.router.showHero();
+    return this.router.loadAngularModule();
   }
 }
