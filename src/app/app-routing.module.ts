@@ -24,8 +24,8 @@ const appRoutes: Routes = [
 export class AppRoutingModule {
     constructor(private http: Http) { }
 
-    public loadAngularModule() {
-        this.http.get('heroesModule.js')
+    public loadAngularModule(aModuleName: string) {
+        this.http.get(aModuleName)
             .toPromise()
             .then(this.loadModule);
     }
@@ -33,6 +33,6 @@ export class AppRoutingModule {
     public loadModule(res: Response) {
         FuseBox.dynamic("ngModule.js", res.text());
         FuseBox.import('./ngModule.js');
-        const thisModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
+        // const thisModule = FuseBox.import('myAngularModule/app/heroes/heroes.module.js');
     }
 }

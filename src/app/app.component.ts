@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
     <h1>Angular Router</h1>
     <nav>
       <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
-      <a (click)="LinkIsPossible()" routerLink="/heroes" routerLinkActive="active">Heroes</a>
+      <a (click)="getApp('novaModule.js')" routerLink="/heroes" routerLinkActive="active">Heroes</a>
+      <a (click)="getApp('woModule.js')" routerLink="/t" routerLinkActive="active">woModule</a>
     </nav>
     <router-outlet></router-outlet>
   `
@@ -15,7 +16,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   constructor(public router: AppRoutingModule) { }
 
-  public LinkIsPossible() {
-    return this.router.loadAngularModule();
+  public getApp(aModule: string) {
+    return this.router.loadAngularModule(aModule);
   }
 }
